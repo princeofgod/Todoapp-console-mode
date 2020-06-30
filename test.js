@@ -3,15 +3,15 @@ var todoStorage = [];
 var newTask;
 var date = new Date();
 var dateCreateddateCreated;
-
+let append =(data)=>todoStorage.push(data);
+//let del = ()
 
 class Todo{
   constructor(task,title){
     this.title = title;
     this.task = task;
     this.status = 'pending';
-    this.dateCreated = date.getFullYear() +'-'+ (date.getMonth()+1) +'-'+date.getDay() +
-    ' '+date.getHours()+':'+date.getMinutes()+':'+ date.getSeconds();
+    this.dateCreated = `${date.getFullYear()}-${(date.getMonth()+1)}-${date.getDay()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
   }
   
 
@@ -25,18 +25,18 @@ class Todo{
         todoStorage.push(this.newTask);
         return this.todoStorage;
       }   
-  });
-}
+    });
+  }
 
-//Searches for already saved tasks
-//   searchTask(title){
+  //Searches for already saved tasks
+  //   searchTask(title){
     
-//   }
-// //Gets all task
-//   getTasks(){
-//     return todoStorage;
-//   }
-// //Deletes task from app.
+  //   }
+  // //Gets all task
+  //   getTasks(){
+  //     return todoStorage;
+  //   }
+  //Deletes task from app.
   deleteTask(title){
     todoStorage = todoStorage.filter(el => {
       let h = Object.values(el)
@@ -48,7 +48,7 @@ class Todo{
     console.log(todoStorage);
   }
 
-//   //Edit function
+   //Edit function
   editTasks(whatToEdit,oldValue,newValue){
     todoStorage = todoStorage.sort(el => {
       if(el.whatToEdit == oldValue){
@@ -70,6 +70,7 @@ class Todo{
     }
   }
 }
-var create = new Todo('Challenge', 'Finish before Wednesday');
-
+//var create = new Todo('Challenge', 'Finish before Wednesday');
+append(new Todo('Challenge', 'Finish before Wednesday'))
+console.log(todoStorage)
 
