@@ -5,7 +5,7 @@ var date = new Date();
 var dateCreateddateCreated;
 let createTask =(data)=>todoStorage.push(data);
 //let del = ()
-
+//-----------------------------------------------------------------------------------------------------------------------------------------
   class Todo{
     constructor(title,task){
       this.title = title;
@@ -14,7 +14,7 @@ let createTask =(data)=>todoStorage.push(data);
       this.dateCreated = `${date.getFullYear()}-${(date.getMonth()+1)}-${date.getDay()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
     }
   }
-
+//------------------------------------------------------------------------------------------------------------------------------------------
   //Searches for already saved tasks
   //   searchTask(title){
     
@@ -23,6 +23,7 @@ let createTask =(data)=>todoStorage.push(data);
   //   getTasks(){
   //     return todoStorage;
   //   }
+//-----------------------------------------------------------------------------------------------------------------------------------------
   //Deletes task from app.
   function deleteTask(title){
     todoStorage = todoStorage.filter(el => {
@@ -34,7 +35,7 @@ let createTask =(data)=>todoStorage.push(data);
         }})
     console.log(todoStorage);
   }
-
+//------------------------------------------------------------------------------------------------------------------------------------------
    //Edit function
   function editTasks(whatToEdit,oldValue,newValue){
     todoStorage = todoStorage.sort(el => {
@@ -42,6 +43,7 @@ let createTask =(data)=>todoStorage.push(data);
         el.whatToEdit = newValue}
     })
   }
+//----------------------------------------------------------------------------------------------------------------------------------------
 //var create = new Todo('Challenge', 'Finish before Wednesday');
 createTask(new Todo('Challenge', 'Finish before Wednesday'))
 console.log(todoStorage);
