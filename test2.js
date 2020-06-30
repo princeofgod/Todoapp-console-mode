@@ -3,11 +3,11 @@ var todoStorage = [];
 var newTask;
 var date = new Date();
 var dateCreateddateCreated;
-let createTodo =(data)=>todoStorage.push(data);
+let createTask =(data)=>todoStorage.push(data);
 //let del = ()
 
   class Todo{
-    constructor(task,title){
+    constructor(title,task){
       this.title = title;
       this.task = task;
       this.status = 'pending';
@@ -23,7 +23,6 @@ let createTodo =(data)=>todoStorage.push(data);
   //   getTasks(){
   //     return todoStorage;
   //   }
-  
   //Deletes task from app.
   function deleteTask(title){
     todoStorage = todoStorage.filter(el => {
@@ -39,7 +38,6 @@ let createTodo =(data)=>todoStorage.push(data);
    //Edit function
   function editTasks(whatToEdit,oldValue,newValue){
     todoStorage = todoStorage.sort(el => {
-    
       if(el.whatToEdit == oldValue){
         el.whatToEdit = newValue}
     })
