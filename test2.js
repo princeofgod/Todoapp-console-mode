@@ -1,49 +1,135 @@
-// ------------------A Todo console app-------------------
-var todoStorage = [];
-var newTask;
-var date = new Date();
-var dateCreateddateCreated;
-let createTask =(data)=>todoStorage.push(data);
-//let del = ()
-//-----------------------------------------------------------------------------------------------------------------------------------------
-  class Todo{
-    constructor(title,task){
-      this.title = title;
-      this.task = task;
-      this.status = 'pending';
-      this.dateCreated = `${date.getFullYear()}-${(date.getMonth()+1)}-${date.getDay()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-    }
+class Todo {
+  todoList=[];
+
+  constructor() {
+    this.title = '';
+    this.task ='';
+    this.date = null;
+    this.status ='pending'; 
   }
-//------------------------------------------------------------------------------------------------------------------------------------------
-  //Searches for already saved tasks
-  //   searchTask(title){
-    
-  //   }
-  // //Gets all task
-  //   getTasks(){
-  //     return todoStorage;
-  //   }
-//-----------------------------------------------------------------------------------------------------------------------------------------
-  //Deletes task from app.
-  function deleteTask(title){
-    todoStorage = todoStorage.filter(el => {
+  
+  createTask(title,task,date){
+    this.title = title;
+    this.task = task;
+    this.date = new Date();
+    }
+
+  addTodo(){
+    let title = this.title;
+    let task = this.task;
+    let status = this.status;
+    let date = this.date;
+    this.todoList.push({title,task,date,status})
+  }
+   getTodo(){
+     return this.todoList;
+   }
+
+  deleteTodo(title){
+    this.todoList = this.todoList.filter(el => {
       let h = Object.values(el)
         if(h.includes(title)){
           return false
         }else{
           return true
-        }})
-    console.log(todoStorage);
+        }
+      })
+    console.log(this.todoList);
   }
-//------------------------------------------------------------------------------------------------------------------------------------------
-   //Edit function
-  function editTasks(whatToEdit,oldValue,newValue){
-    todoStorage = todoStorage.sort(el => {
-      if(el.whatToEdit == oldValue){
-        el.whatToEdit = newValue}
+
+  searchTodo(value,string){
+    return this.todoList.filter(el=> {
+      let regex = new RegExp(string, 'gi')
+
+      if(value=='title'){
+       if(regex.test(el['title'])){
+         return true
+       }
+      }else if(value == 'task'){
+        if(regex.test(el['task'])){
+          return true;
+        }else{
+          return false;
+        }
+      }
     })
   }
-//----------------------------------------------------------------------------------------------------------------------------------------
-//var create = new Todo('Challenge', 'Finish before Wednesday');
-createTask(new Todo('Challenge', 'Finish before Wednesday'))
-console.log(todoStorage);
+  
+  //SOrts todoList
+  //The parameter type could either be date or title. If date is used app sorts the list by date,
+  //If title is used app sorts the list by title.
+  //Order is either ascending or descending.
+  sortTodo(type, order){
+    if (type == 'date' && order == 'ascending'){
+      return this.todoList.sort((a, b) => (a['date']-b['date']))
+    }else if(type == 'date' && order == 'descending'){
+      return this.todoList.sort((a, b) => b['date']-a['date'])
+    }else if (type == 'title' && order == 'descending'){
+      return this.todoList.sort((a, b) => b['title']-a['title'])
+    }else if(type == 'title' && order == 'ascending'){
+      return this.todoList.sort((a, b) => a['title'] - b['title'])
+    }else{
+      return 'parameters not correct'
+    }  
+  }
+
+  editTaskStatus(title,currentStatus, newStatus){
+    for (let x in this.todoList){
+      if(title ==x['title'] && x['status'] == currentStatus){
+        x['status'] =newStatus.toLowerCase();
+        console.log(`Status for ${title} successfully changed!`);
+      }else if(title == x['title'] && x['status']==newStatus){
+        return 'status previously set!';
+      }else if(title != x['title']){
+        console.log(`Todo task with title '${title}' does not exist!`)
+      }
+        // });
+    }
+    // this.todoList = this.todoList.sort(el => {
+    //   if(title == el['title'] && el['status'] == currentStatus){
+    //     el['status'] = newStatus.toLowerCase();
+    //     console.log(`Status for ${title} successfully changed!`)
+    //   }else if(title == el['title'] && el['status']==newStatus){
+    //     return 'status previously set!'}
+    //   // }else if(title !=el['title']){
+    //   //   console.log(`Todo task with title '${title}' does not exist!`)
+    //   // }
+    // });
+  }
+  
+  //this edits the tasks already stored.
+  //The title parameter serves as the primary key that tells the actual object to edit
+  //whattoedit is the key(can either be title or task)
+  editTodo(title, whattoedit, newValue){
+    for (let i in this.todoList){
+      if (title == i.title){
+        i[whattoedit] = newValue;
+      }else if(!newValue){
+        console.log('no new value given, property not changed!');
+      }else if(title !=i['title']){
+        console.log(`The title '${title}' doesn't match any entry, Check and try again!`);
+      }
+    }
+    // this.todoList = this.todoList.forEach(el => {
+    //   if(el['title'] == title){
+    //     el[whattoedit] = newValue;
+    //   }else if(!newValue){
+    //     //console.log('no new value given, property not changed!')
+    //    }else if(title !=el['title']){
+    //     //console.log(`The title '${title}' doesn't match any entry, Check and try again!`)
+    //   }
+    // })
+  }
+
+}
+
+let todo = new Todo()
+todo.createTask("Code",'Greatness is of God')
+todo.addTodo();
+todo.createTask('Jide','Going to Alaso to check an huawei phone')
+todo.addTodo();
+todo.createTask('Wande','I need to go to Moshalashi to get Check Wande\'s Tab')
+todo.addTodo();
+todo.createTask('Factman', 'I have a challenge to submit in two days')
+todo.addTodo();
+console.log(todo.getTodo())
