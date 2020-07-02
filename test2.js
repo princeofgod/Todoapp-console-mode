@@ -59,7 +59,9 @@ class Todo {
   //The parameter type could either be date or title. If date is used app sorts the list by date,
   //If title is used app sorts the list by title.
   //Order is either ascending or descending.
-  sortTodo(type, order){
+  
+//my own sort
+sortTodo(type, order){
     if (type == 'date' && order == 'ascending'){
       return this.todoList.sort((a, b) => (a['date']-b['date']))
     }else if(type == 'date' && order == 'descending'){
@@ -69,6 +71,48 @@ class Todo {
     }else if(type == 'title' && order == 'ascending'){
       return this.todoList.sort((a, b) => a['title'] - b['title'])
     }else{
+      return 'parameters not correct'
+    }  
+  }
+
+//Kabir's sort
+sortTodo(type, order){
+    if (type == 'date' && order == 'ascending'){
+       this.todoList.sort((a, b) => a.date.getDate() - b.date.getDate())
+    }
+    else if(type == 'date' && order == 'descending'){
+      this.todoList.sort((a, b) => b.date.getDate() - a.date.getDate())
+    }
+    else if(type == 'title' && order == 'descending'){
+      this.todoList.sort(function(a,b){
+        let titleA = a.title.toLowerCase();
+        let titleB = b.title.toLowerCase();
+        
+        if(titleA > titleB){
+          return -1;
+        }
+        else if(titleA < titleB){
+          return 1;
+        }
+        return 0;
+      })
+    }
+    else if(type == 'title' && order == 'ascending'){
+      this.todoList.sort(function(a,b){
+        let titleA = a.title.toLowerCase();
+        let titleB = b.title.toLowerCase();
+        
+        if(titleA > titleB){
+          return 1;
+        }
+        else if(titleA < titleB){
+          return -1;
+        }
+        
+        return 0;
+      })
+    }
+    else{
       return 'parameters not correct'
     }  
   }
